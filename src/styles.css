@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Quebra de linha dos comentários*/
+.break-word {
+  word-break: break-all;
+}
