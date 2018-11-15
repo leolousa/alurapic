@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validator';
 import { UserNotTakenValidatorService } from './user-not-taken.validator.service';
 import { NewUser } from './new-user';
 import { SignUpService } from './signup.service';
-import { Router } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
+import { userNamePasswordValidator } from './username-password.validator';
 
 @Component({
   // Como tem o escopo de página, não possui um 'selector'
@@ -56,6 +57,9 @@ export class SignUpComponent implements OnInit {
           Validators.maxLength(18)
         ]
       ]
+    }, {
+      // Validação Cross-Field (Campo depende do valor de outro)
+      validator: userNamePasswordValidator
     });
 
     // tslint:disable-next-line:no-unused-expression // seta o foco no elemento da página se está no Browser
@@ -65,7 +69,7 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     // Teste para submeter apenas se todos os campos são válidos
-    if(this.signupForm.valid && !this.signupForm.pending) {
+    if (this.signupForm.valid && !this.signupForm.pending) {
       const newUser = this.signupForm.getRawValue() as NewUser;
       this.signUpService
         .signUp(newUser)
