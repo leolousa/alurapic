@@ -17,7 +17,14 @@ export class AuthGuard implements CanActivate {
 
       // Não está logado, navega para a tela de login
       if (!this.userService.isLogged()) {
-        this.router.navigate(['']);
+        this.router.navigate(
+          [''],
+          {
+            queryParams: {
+              fromUrl: state.url
+            }
+          }
+        );
         return false;
       }
       return true;
