@@ -64,12 +64,17 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp() {
-    const newUser = this.signupForm.getRawValue() as NewUser;
-    this.signUpService
-      .signUp(newUser)
-      .subscribe(
-          () => this.router.navigate(['']),
-          err => console.log(err)
-        );
+    // Teste para submeter apenas se todos os campos são válidos
+    if(this.signupForm.valid && !this.signupForm.pending) {
+      const newUser = this.signupForm.getRawValue() as NewUser;
+      this.signUpService
+        .signUp(newUser)
+        .subscribe(
+            () => this.router.navigate(['']),
+            err => console.log(err)
+          );
+    }
   }
+
+
 }

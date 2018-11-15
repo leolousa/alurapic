@@ -37,7 +37,6 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     if (environment.production) { router.navigate(['/error']); }
 
-
     StackTrace
       .fromError(error)
       .then(stackFrames => {
